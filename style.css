@@ -66,12 +66,14 @@ a { color: var(--red); text-underline-offset: 0.15em; }
 
 dialog {
   border: 0; padding: 0; background: transparent; margin: auto;
-  max-width: 100vw; max-height: 100dvh; overflow: hidden;
+  max-width: 100vw; max-height: 100dvh; overflow: visible;
 }
-dialog::backdrop { background: rgba(10, 14, 26, 0.94); }
+dialog::backdrop { background: rgba(10, 14, 26, 0.94); transition: background 0.5s ease; }
+@starting-style { dialog[open]::backdrop { background: rgba(10, 14, 26, 0); } }
+dialog.closing::backdrop { background: rgba(10, 14, 26, 0); }
 body:has(dialog[open]) { overflow: hidden; }
-dialog img { max-width: 100vw; max-height: 100dvh; width: auto; height: auto; object-fit: contain; }
-dialog form { position: fixed; top: 0; right: 0; }
+dialog img { transition: transform 0.5s cubic-bezier(0.3, 0, 0.15, 1); will-change: transform; }
+dialog > button { position: fixed; top: 0; right: 0; }
 dialog button {
   all: unset; cursor: pointer; color: var(--ink);
   min-width: 44px; min-height: 44px; padding: 0.5rem 1rem;
@@ -126,6 +128,7 @@ dialog button:focus-visible { outline: 2px solid var(--ink); outline-offset: -4p
 
 @media (prefers-reduced-motion: reduce) {
   .js .note { opacity: 1; transition: none; }
+  dialog img, dialog::backdrop { transition: none; }
 }
 
 /* scatter: photographs spread on a table, not a gallery wall */
