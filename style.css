@@ -116,15 +116,8 @@ dialog button:focus-visible { outline: 2px solid var(--ink); outline-offset: -4p
 .nots { padding-block: 1rem 3rem; }
 .nots p { color: var(--ink-dim); }
 
-.dark { min-height: 70vh; }
-.closing { color: var(--red); font-family: var(--serif); font-size: 1.5rem; margin-bottom: 3rem; }
-.note { padding-bottom: 15vh; }
-.note p { max-width: 60ch; line-height: 1.9; font-size: 1.15rem; }
-.js .note { opacity: 0; transition: opacity 1.6s ease; }
-.js .note.is-visible { opacity: 1; }
 
 @media (prefers-reduced-motion: reduce) {
-  .js .note { opacity: 1; transition: none; }
   dialog img, dialog::backdrop { transition: none; }
   .js .home h1 span, .js .home p { animation: none; opacity: 1; }
 }

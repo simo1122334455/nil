@@ -52,15 +52,6 @@ if (lb) {
   document.getElementById('lb-close').addEventListener('click', closeLb);
 }
 
-// the note fades in once it is scrolled to
-var note = document.querySelector('.note');
-if (note) {
-  if (!('IntersectionObserver' in window)) note.classList.add('is-visible');
-  else new IntersectionObserver(function (entries, io) {
-    if (entries[0].isIntersecting) { note.classList.add('is-visible'); io.disconnect(); }
-  }, { threshold: 0.15 }).observe(note);
-}
-
 // home: her name arrives letter by letter, the ü last
 var h1 = document.querySelector('.home h1');
 if (h1) {
