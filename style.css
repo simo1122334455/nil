@@ -46,6 +46,9 @@ a { color: var(--red); text-underline-offset: 0.15em; }
 .home { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 0 1.5rem 12vh; }
 .home h1 { font-size: clamp(3.5rem, 16vw, 9rem); font-weight: 300; letter-spacing: -0.02em; }
 .home p { margin: 0.75rem 0 0 0.2rem; color: var(--ink-dim); max-width: 34ch; }
+.js .home h1 span { display: inline-block; opacity: 0; animation: arrive 0.7s cubic-bezier(0.2, 0.6, 0.2, 1) forwards; animation-delay: calc(var(--i) * 80ms); }
+.js .home p { opacity: 0; animation: arrive 1s ease-out 1s forwards; }
+@keyframes arrive { from { opacity: 0; transform: translateY(0.25em); } to { opacity: 1; transform: none; } }
 
 /* drawings */
 .grid {
@@ -129,6 +132,7 @@ dialog button:focus-visible { outline: 2px solid var(--ink); outline-offset: -4p
 @media (prefers-reduced-motion: reduce) {
   .js .note { opacity: 1; transition: none; }
   dialog img, dialog::backdrop { transition: none; }
+  .js .home h1 span, .js .home p { animation: none; opacity: 1; }
 }
 
 /* scatter: photographs spread on a table, not a gallery wall */

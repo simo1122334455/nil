@@ -60,3 +60,14 @@ if (note) {
     if (entries[0].isIntersecting) { note.classList.add('is-visible'); io.disconnect(); }
   }, { threshold: 0.15 }).observe(note);
 }
+
+// home: her name arrives letter by letter, the ü last
+var h1 = document.querySelector('.home h1');
+if (h1) {
+  var letters = Array.from(h1.textContent), order = letters.map(function (_, i) { return i; });
+  order.sort(function (a, b) { return (letters[a] === 'ü') - (letters[b] === 'ü') || a - b; });
+  h1.setAttribute('aria-label', h1.textContent);
+  h1.innerHTML = letters.map(function (ch, i) {
+    return '<span aria-hidden="true" style="--i:' + (order.indexOf(i) + (ch === 'ü' ? 2 : 0)) + '">' + ch + '</span>';
+  }).join('');
+}
