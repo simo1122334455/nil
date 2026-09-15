@@ -62,7 +62,7 @@ a { color: var(--red); text-underline-offset: 0.15em; }
 .grid button { all: unset; cursor: pointer; display: block; min-width: 44px; min-height: 44px; }
 .grid button:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
 .grid img { width: 100%; }
-.gift { padding: 10%; }
+.grid .gift { padding: 10%; }
 
 dialog {
   border: 0; padding: 0; background: transparent; margin: auto;
