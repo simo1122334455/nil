@@ -137,7 +137,7 @@ dialog button:focus-visible { outline: 2px solid var(--ink); outline-offset: -4p
 
 /* scatter: photographs spread on a table, not a gallery wall */
 html { overflow-x: clip; }
-.grid button { transform: rotate(var(--r, 0deg)) scale(var(--s, 1)) translate(var(--x, 0), var(--y, 0)); }
+.grid button { position: relative; touch-action: manipulation; transform: rotate(var(--r, 0deg)) scale(calc(var(--s, 1) * var(--g, 1))) translate(var(--x, 0), var(--y, 0)); }
 .grid button:nth-child(5n+1) { --r: -3deg; }
 .grid button:nth-child(5n+2) { --r: 2deg; }
 .grid button:nth-child(5n+3) { --r: -1.5deg; }
@@ -151,4 +151,43 @@ html { overflow-x: clip; }
   .grid button:nth-child(4n+1) { --y: 6%; }
   .grid button:nth-child(4n+3) { --y: -5%; --x: 4%; }
   .grid button:nth-child(7n+2) { --x: -5%; }
+}
+
+/* the gift drawing: grows on double-tap, then turns over */
+.grid .gift { z-index: 1; transition: transform 0.4s cubic-bezier(0.3, 0, 0.15, 1); }
+.grid img { transition: opacity 0.8s ease; }
+.grid .gone img { opacity: 0; }
+.grid .letter {
+  position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none;
+  font-family: var(--serif); font-size: clamp(4.5rem, 18vw, 8rem); color: var(--red); opacity: 0;
+}
+.grid .letter.on { animation: flash 0.5s ease forwards; }
+@keyframes flash { 0%, 100% { opacity: 0; } 25%, 75% { opacity: 1; } }
+body.revealing { overflow: hidden; }
+.revealing .grid { pointer-events: none; }
+
+#stage { position: fixed; inset: 0; z-index: 10; perspective: 1400px; touch-action: none; }
+#card {
+  position: absolute; left: var(--cx); top: var(--cy); width: var(--w);
+  transform: translate(-50%, -50%) rotate(var(--r, 0deg)) rotateY(0deg);
+  transform-style: preserve-3d;
+  transition: left 0.9s, top 0.9s, width 0.9s, transform 0.9s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+#card.flipped { transform: translate(-50%, -50%) rotate(var(--r, 0deg)) rotateY(180deg); transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1); }
+#card .front { width: 100%; max-width: none; backface-visibility: hidden; }
+#card .back {
+  position: absolute; inset: 0; transform: rotateY(180deg); backface-visibility: hidden;
+  overflow-y: auto; -webkit-overflow-scrolling: touch; touch-action: pan-y; overscroll-behavior: contain;
+  padding: 1.5rem 1.25rem; color: var(--ink);
+  background: #16131b url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.09'/%3E%3C/svg%3E");
+}
+#card .back p { margin: 0 0 1.5rem; font-size: 1rem; line-height: 1.8; }
+#card .back a { font-size: 0.9rem; }
+#card.done { transform-style: flat; transform: translate(-50%, -50%); transition: none; }
+#card.done .front { visibility: hidden; }
+#card.done .back { transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .grid .gift, .grid img, #card { transition: none; }
+  .grid .letter.on { animation: none; }
 }
