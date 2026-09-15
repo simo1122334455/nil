@@ -9,7 +9,7 @@
 
 * { box-sizing: border-box; }
 
-html { background: var(--bg); color: var(--ink); -webkit-text-size-adjust: 100%; }
+html { background: var(--bg) radial-gradient(900px 520px at 50% 0, #151d33, transparent) no-repeat; color: var(--ink); -webkit-text-size-adjust: 100%; }
 
 body {
   margin: 0;
@@ -64,7 +64,9 @@ a { color: var(--red); text-underline-offset: 0.15em; }
 @media (min-width: 900px) { .grid { grid-template-columns: repeat(4, 1fr); gap: 1.25rem; } }
 .grid button { all: unset; cursor: pointer; display: block; min-width: 44px; min-height: 44px; }
 .grid button:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
-.grid img { width: 100%; }
+.grid img { width: 100%; box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5); }
+.grid .wide { grid-column: span 2; }
+.grid .tall img { aspect-ratio: 3 / 4; object-fit: cover; object-position: 50% 55%; }
 .grid .gift { padding: 10%; }
 
 dialog {
@@ -75,7 +77,7 @@ dialog::backdrop { background: rgba(10, 14, 26, 0.94); transition: background 0.
 @starting-style { dialog[open]::backdrop { background: rgba(10, 14, 26, 0); } }
 dialog.closing::backdrop { background: rgba(10, 14, 26, 0); }
 body:has(dialog[open]) { overflow: hidden; }
-dialog img { transition: transform 0.5s cubic-bezier(0.3, 0, 0.15, 1); will-change: transform; }
+dialog img { transition: transform 0.5s cubic-bezier(0.3, 0, 0.15, 1); will-change: transform; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7); }
 dialog > button { position: fixed; top: 0; right: 0; }
 dialog button {
   all: unset; cursor: pointer; color: var(--ink);
@@ -85,7 +87,7 @@ dialog button {
 dialog button:focus-visible { outline: 2px solid var(--ink); outline-offset: -4px; }
 
 /* about */
-.about section { padding: 4rem 1.5rem; max-width: 64rem; margin: 0 auto; width: 100%; }
+.about section { padding: 3rem 1.5rem; max-width: 64rem; margin: 0 auto; width: 100%; }
 .about h2 { font-size: 2rem; margin-bottom: 1rem; }
 .about p { max-width: 62ch; }
 .prose { font-size: 1.15rem; }
@@ -94,7 +96,7 @@ dialog button:focus-visible { outline: 2px solid var(--ink); outline-offset: -4p
 @media (min-width: 720px) { .opening { grid-template-columns: 1fr auto; } }
 .opening img { max-width: 100%; }
 
-.bowls { text-align: center; padding-block: 8rem; }
+.bowls { text-align: center; padding-block: 5rem; }
 .bowls blockquote { margin: 0; font-family: var(--serif); font-size: clamp(1.75rem, 6vw, 3.25rem); line-height: 1.2; }
 .bowls p { margin: 2rem auto 0; color: var(--ink-dim); }
 
@@ -119,12 +121,12 @@ dialog button:focus-visible { outline: 2px solid var(--ink); outline-offset: -4p
 .loves li { padding: 1.25rem 1rem; border: 1px solid #232838; border-radius: 3px; min-height: 5.5rem; display: flex; align-items: end; }
 .loves .tanja { margin-top: 2.5rem; font-family: var(--serif); font-size: 1.5rem; }
 
-.nots { padding-block: 2rem 5rem; }
+.nots { padding-block: 1rem 3rem; }
 .nots p { color: var(--ink-dim); }
 
-.dark { min-height: 140vh; }
+.dark { min-height: 70vh; }
 .closing { color: var(--red); font-family: var(--serif); font-size: 1.5rem; margin-bottom: 3rem; }
-.note { padding-bottom: 30vh; }
+.note { padding-bottom: 15vh; }
 .note p { max-width: 60ch; line-height: 1.9; font-size: 1.15rem; }
 .js .note { opacity: 0; transition: opacity 1.6s ease; }
 .js .note.is-visible { opacity: 1; }
@@ -175,7 +177,7 @@ body.revealing { overflow: hidden; }
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 #card.flipped { transform: translate(-50%, -50%) rotate(var(--r, 0deg)) rotateY(180deg); transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1); }
-#card .front { width: 100%; max-width: none; backface-visibility: hidden; }
+#card .front { width: 100%; max-width: none; backface-visibility: hidden; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7); }
 #card .back {
   position: absolute; inset: 0; transform: rotateY(180deg); backface-visibility: hidden;
   overflow-y: auto; -webkit-overflow-scrolling: touch; touch-action: pan-y; overscroll-behavior: contain;
